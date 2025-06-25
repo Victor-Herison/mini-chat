@@ -1,8 +1,10 @@
 const dotenv = require('dotenv').config();
 const express = require('express');
 const app = express();
+const userRouter = require('./routes/userRouter.ts');
 
 
+app.use('/user',express.json(), userRouter);
 
 
 
