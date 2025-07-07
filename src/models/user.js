@@ -1,4 +1,4 @@
-const connectDB = require('../db/connectDB.ts');
+const connectDB = require('../db/connectDB.js');
 
 const userSchema = new connectDB.Schema({
     nickname: {

@@ -1,6 +1,7 @@
 
 const bcrypt = require('bcryptjs');
-const User = require('../models/user.ts')
+const User = require('../models/user.js')
+const jwt = require('jsonwebtoken');
 
 const userControler = { 
 
@@ -13,6 +14,15 @@ const userControler = {
                 if (!nickname || !email || !password) {
                     return res.status(400).json({ message: 'All fields are required' });
                 }
+
+                if(password.length < 6){
+                    return res.status(400).json({ message: 'Password must be at least 6 characters long' });
+                }
+
+                if (nickname.length < 3) {
+                    return res.status(400).json({ message: 'Nickname must be at least 3 characters long' });
+                }
+                
                 const salt = await bcrypt.genSaltSync(10);
                 const criptedPassword = await bcrypt.hashSync(password, salt);
 
@@ -38,9 +48,11 @@ const userControler = {
             const passwordMatch = await bcrypt.compare(req.body.password, actualUser.password);
             
             if (passwordMatch) {
+                const token = jwt.sign({ userId: actualUser._id }, process.env.TOKEN_SECRET, { expiresIn: '1h' });
+                res.header('Authorization', `Bearer ${token}`);
                 return res.status(200).json({ message: 'Login successful', user: { nickname: actualUser.nickname, email: actualUser.email } });
             }
-
+            
             return res.status(401).json({ message: 'Invalid email or password' });
         }
         return res.status(400).json({ message: 'Invalid email or password'});
