@@ -75,7 +75,8 @@ const userControler = {
                 return res.status(400).json({ message: 'Actual password and new password are required' });
             }
 
-            const actualUser = await User.findOne({ email: req.body.email });
+            // Use authenticated user from req.user
+            const actualUser = await User.findById(req.user.userId);
             if (!actualUser) {
                 return res.status(404).json({ message: 'User not found' });
             }
@@ -98,18 +99,19 @@ const userControler = {
 
     updateUserNickname: async function(req, res) {
         try{
-            const { email, newNickname } = req.body;
+            const { newNickname } = req.body;
             const userAlreadyExists = await User.findOne({ nickname: newNickname });
             
             if(userAlreadyExists){
                 return res.status(400).json({ message: 'Nickname already exists' });
             }
 
-            if (!email || !newNickname) {
-                return res.status(400).json({ message: 'Email and new nickname are required' });
+            if (!newNickname) {
+                return res.status(400).json({ message: 'New nickname is required' });
             }
 
-            const actualUser = await User.findOne({email});
+            // Use authenticated user from req.user
+            const actualUser = await User.findById(req.user.userId);
             if (!actualUser) {
                 return res.status(404).json({ message: 'User not found' });
             }

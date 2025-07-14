@@ -11,7 +11,6 @@ import { Loader2, User, Mail, Lock, MessageCircle } from "lucide-react"
 
 export default function LoginPage() {
   const [formData, setFormData] = useState({
-    nickname: "",
     email: "",
     password: "",
   })
@@ -46,10 +45,6 @@ export default function LoginPage() {
   }
 
   const validateForm = () => {
-    if (!formData.nickname.trim()) {
-      setError("Nickname is required")
-      return false
-    }
     if (!formData.email.trim()) {
       setError("Email is required")
       return false
@@ -136,8 +131,7 @@ export default function LoginPage() {
                 className="w-20 h-20 rounded-full mx-auto mb-4 border-4 border-purple-300"
               />
               <h2 className="text-2xl font-bold text-white mb-2">Welcome back!</h2>
-              <p className="text-purple-200">Hello, {userData.nickname}</p>
-              <p className="text-purple-300 text-sm">{userData.email}</p>
+              <p className="text-purple-200">Hello, {userData.email}</p>
             </div>
             <div className="flex items-center justify-center text-purple-200">
               <Loader2 className="w-4 h-4 animate-spin mr-2" />
@@ -161,22 +155,6 @@ export default function LoginPage() {
         </CardHeader>
         <CardContent className="space-y-4">
           <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="nickname" className="text-purple-200 flex items-center">
-                <User className="w-4 h-4 mr-2" />
-                Nickname
-              </Label>
-              <Input
-                id="nickname"
-                name="nickname"
-                type="text"
-                placeholder="Enter your nickname"
-                value={formData.nickname}
-                onChange={handleInputChange}
-                className="bg-white/10 border-purple-300/30 text-white placeholder:text-purple-300 focus:border-purple-400 focus:ring-purple-400"
-                disabled={isLoading}
-              />
-            </div>
 
             <div className="space-y-2">
               <Label htmlFor="email" className="text-purple-200 flex items-center">

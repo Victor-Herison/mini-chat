@@ -21,7 +21,7 @@ const httpServer = createServer(app);
 
 
 app.use('/', express.static(path.join(__dirname,'..','public')));
-console.log('Static files served from:', path.join(__dirname, 'public'));
+console.log('Static files served from:', path.join(__dirname, '..', 'public'));
 
 app.use('/user',express.json(), userRouter);
 
