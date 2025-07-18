@@ -8,20 +8,15 @@ const app = express();
 
 
 const corsOptions = {
-  origin: 'http://localhost:5173', // Adjust this to your client URL
+  origin: 'http://localhost:5173', 
     methods: ['GET', 'POST'],
-    credentials: true, // Allow cookies to be sent
-    optionsSuccessStatus: 200 // For legacy browser support
+    credentials: true,
+    optionsSuccessStatus: 200,
+    exposedHeaders: ["Authorization"]
 };
 
 app.use(cors(corsOptions));
 const userRouter = require('./routes/userRouter');
-const httpServer = createServer(app);
-
-
-
-app.use('/', express.static(path.join(__dirname,'..','public')));
-console.log('Static files served from:', path.join(__dirname, '..', 'public'));
 
 app.use('/user',express.json(), userRouter);
 
