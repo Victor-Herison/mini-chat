@@ -85,11 +85,11 @@ export default function LoginPage() {
       })
 
       const data = await response.json()
-      console.log(data)
 
       if (response.ok) {
         // Store token if provided in headers
-        const token = response.headers.get("Authorization")
+        const token = response.headers.get('Authorization')
+  
         if (token) {
           localStorage.setItem("authToken", token)
         }
@@ -106,7 +106,7 @@ export default function LoginPage() {
 
         // Redirect to chat after 2 seconds
         setTimeout(() => {
-          navigate("/chat")
+          navigate("/")
         }, 2000)
       } else {
         setError(data.message || "Login failed")
