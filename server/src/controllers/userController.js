@@ -22,6 +22,9 @@ const userControler = {
                 if (nickname.length < 3) {
                     return res.status(400).json({ message: 'Nickname must be at least 3 characters long' });
                 }
+                if ( await User.findOne({ nickname }) || await User.findOne({ email })) {
+                    return res.status(400).json({message: "Nicname or email already exists"});
+                }
                 
                 const salt = await bcrypt.genSaltSync(10);
                 const criptedPassword = await bcrypt.hashSync(password, salt);
