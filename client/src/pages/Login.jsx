@@ -28,6 +28,17 @@ export default function LoginPage() {
     "https://api.dicebear.com/7.x/avataaars/svg?seed=4",
     "https://api.dicebear.com/7.x/avataaars/svg?seed=5",
     "https://api.dicebear.com/7.x/avataaars/svg?seed=6",
+    "https://api.dicebear.com/9.x/avataaars/svg?seed=Eliza",
+    "https://api.dicebear.com/9.x/avataaars/svg?seed=Aidan",
+    "https://api.dicebear.com/9.x/big-smile/svg?seed=Sara",
+    "https://api.dicebear.com/9.x/big-smile/svg?seed=Kingston",
+    "https://api.dicebear.com/9.x/big-smile/svg?seed=Leo",
+    "https://api.dicebear.com/9.x/big-smile/svg?seed=Mason",
+    "https://api.dicebear.com/9.x/big-smile/svg?seed=Eliza",
+    "https://api.dicebear.com/9.x/big-smile/svg?seed=Alexander",
+    "https://api.dicebear.com/9.x/lorelei/svg?seed=Eliza",
+    "https://api.dicebear.com/9.x/lorelei/svg?seed=Sadie",
+    "https://api.dicebear.com/9.x/lorelei/svg?seed=Liam"
   ]
 
   const getRandomProfileLogo = () => {
@@ -192,8 +203,8 @@ export default function LoginPage() {
             </div>
 
             {error && (
-              <Alert className="bg-red-500/20 border-red-400/30 text-red-200">
-                <AlertDescription>{error}</AlertDescription>
+              <Alert className="bg-red-500/20 border-red-400/30 ">
+                <AlertDescription className="text-white">{error}</AlertDescription>
               </Alert>
             )}
 
