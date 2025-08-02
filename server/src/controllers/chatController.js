@@ -20,6 +20,7 @@ const chatController = {
             res.status(201).json({message: 'Chat created successfully', chat: newChat});
 
         }catch(error) {
+            console.error('Error retrieving chats:', error);
             return res.status(500).json({ message: 'Internal server error', error: error.message });
         }
     },
@@ -32,11 +33,21 @@ const chatController = {
 
             const {chatId} = req.params;
 
-            const chat = chatModel.findByIdAndDelete(chatId);
+            if (!chatId || chatId.length !== 24) {
+                return res.status(400).json({ message: 'Invalid chat ID' });
+            }
+
+            const chat = await chatModel.findByIdAndDelete(chatId);
+            
+
+            if(!chat){
+                return res.status(404).json({message: 'Chat not found'})
+            }
             return res.status(200).json({message: 'Chat deleted sucessfully', chat});
 
 
         } catch(error){
+            console.error('Error retrieving chats:', error);
             return res.status(500).json({ message: 'Internal server error', error: error.message})
         }
     },
@@ -53,6 +64,7 @@ const chatController = {
         return res.status(200).json({ message: 'Chat retrieved successfully', chat });
 
       }catch(error){
+        console.error('Error retrieving chats:', error);
         return res.status(500).json({message: 'Internal server error', error: error.message});
       }  
 
@@ -67,6 +79,7 @@ const chatController = {
 
             return res.status(200).json({ message: 'Chats retrieved successfully', chats });
         }catch(error){
+            console.error('Error retrieving chats:', error);
             return res.status(500).json({ message: 'Internal server error', error: error.message });
         }
     }
