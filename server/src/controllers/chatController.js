@@ -8,10 +8,16 @@ const chatController = {
             }
             const { firstId, secondId } = req.body;
             const chat = await chatModel.findOne({ members: { $all: [firstId, secondId] } });
+
+            // Check if chat already exists
             if (chat) return res.status(200).json({ message: 'Chat already exists', chat });
 
             if (!firstId || !secondId) {
                 return res.status(400).json({ message: 'Both user IDs are required' });
+            }
+
+            if (firstId.length !== 24 || secondId.length !== 24) {
+                return res.status(400).json({ message: 'Invalid users IDs' });
             }
 
             const newChat = await chatModel.create({
@@ -54,12 +60,16 @@ const chatController = {
 
     getChat: async function(req, res){
       try {
-        if (!req.params || !req.params.chatId) {
-          return res.status(400).json({ message: 'Invalid request parameters, chatId is required' });
+        if (!req.params || !req.params.firstId || !req.params.secondId) {
+          return res.status(400).json({ message: 'Invalid request parameters, clients IDs are required' });
         }
 
-        const {chatId} = req.params;
-        const chat = await chatModel.findById(chatId)
+        const {firstId, secondId} = req.params;
+        const chat = await chatModel.findOne({ members: { $all: [firstId, secondId] } });
+
+        if(!chat){
+            return res.status(404).json({ message: 'Chat not found' });
+        }
 
         return res.status(200).json({ message: 'Chat retrieved successfully', chat });
 
@@ -70,10 +80,17 @@ const chatController = {
 
     },
 
-    getAllChats: async function(req, res){
+    getAllClientChats: async function(req, res){
         try{
-            const chats = await chatModel.find({});
-            if (!chats || chats.length === 0) {
+            if (!req.params || !req.params.clientId) {
+                return res.status(400).json({ message: 'Invalid request parameters, client ID is required' });
+            }
+
+            const { clientId } = req.params;
+
+            const chats = await chatModel.find({ members: { $in: [clientId] } });
+
+            if (!chats) {
                 return res.status(404).json({ message: 'No chats found' });
             }
 
