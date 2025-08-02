@@ -1,5 +1,6 @@
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {BrowserRouter, Navigate, Routes, Route} from "react-router-dom";
+
 
 import Chat from "./pages/Chat";
 import LoginPage from "./pages/Login";
@@ -11,6 +12,7 @@ export default function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/" element={<Chat />} />
+        <Route path="*" element={<Navigate to="/"/>} />
       </Routes>
     </BrowserRouter>
   );
