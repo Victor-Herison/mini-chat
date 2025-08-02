@@ -34,7 +34,8 @@ const userControler = {
                 
 
         }catch (error) {
-                return res.status(400).json({ message: 'Invalid request body', error: error.message });
+                console.error(error);
+                return res.status(500).json({ message: 'Internal server error', error: error.message });
             }
         },
 
@@ -62,8 +63,8 @@ const userControler = {
         return res.status(400).json({ message: 'Invalid email or password'});
  
        }catch (error) {
-
-         res.status(500).json({ message: 'Internal server error', error: error.message });
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error', error: error.message });
 
        }
             
@@ -97,6 +98,7 @@ const userControler = {
             
             return res.status(401).json({ message: 'Invalid actual password' });
         }catch (error) {
+            console.error(error);
             res.status(500).json({ message: 'Internal server error', error: error.message });
         }
     },
@@ -125,6 +127,7 @@ const userControler = {
             await actualUser.save();
             return res.status(200).json({ message: 'Nickname updated successfully', user: { nickname: newNickname, email: actualUser.email } });
         }catch (error) {
+            console.error(error);
             res.status(500).json({ message: 'Internal server error', error: error.message });
         }
     },
@@ -145,6 +148,7 @@ const userControler = {
 
             return res.status(200).json({ user: { nickname: user.nickname, email: user.email, createdAt: user.createdAt } });
         } catch (error) {
+            console.error(error);
             res.status(500).json({ message: 'Internal server error', error: error.message });
         }
     },
@@ -173,6 +177,7 @@ const userControler = {
                     return res.status(500).json({ message: 'Internal server error', error: error.message });
                 });
         } catch (error) {
+            console.error(error);
             res.status(500).json({ message: 'Internal server error', error: error.message });
         }
     }
