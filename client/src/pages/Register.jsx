@@ -218,8 +218,8 @@ export default function RegisterPage() {
             </div>
 
             {error && (
-              <Alert className="bg-red-500/20 border-red-400/30 text-red-200">
-                <AlertDescription>{error}</AlertDescription>
+              <Alert className="bg-red-500/20 border-red-400/30">
+                <AlertDescription className="text-white">{error} testing</AlertDescription>
               </Alert>
             )}
 
