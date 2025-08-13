@@ -1,11 +1,13 @@
-"use client"
 
+import io from "socket.io-client"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { Button } from "../components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card"
 import { LogOut, MessageCircle } from "lucide-react"
 
+
+const socket = io.connect("http://localhost:3000") // Connect to the server
 export default function ChatPage() {
   const [userData, setUserData] = useState(null)
   const navigate = useNavigate()
@@ -74,6 +76,8 @@ export default function ChatPage() {
           </CardContent>
         </Card>
       </div>
+      <script src="/socket.io/socket.io.js"></script>
+      <script src="../socket.js"></script>
     </div>
   )
 }

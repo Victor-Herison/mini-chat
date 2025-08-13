@@ -9,7 +9,7 @@ const app = express();
 
 const corsOptions = {
   origin: 'http://localhost:5173', 
-    methods: ['GET', 'POST'],
+    methods: ['GET', 'POST','DELETE', 'PATCH'],
     credentials: true,
     optionsSuccessStatus: 200,
     exposedHeaders: ["Authorization"]
@@ -30,7 +30,11 @@ const server = app.listen(process.env.PORT || 3000, () => {
     console.log(`Server is running on port ${process.env.PORT || 3000}`);
 });
 
-const io = socketIO(server);
+const io = socketIO(server,{ cors:{
+    origin: 'http://localhost:5173',
+    methods: ['GET', 'POST'],
+    }}
+);
 
 const messages = [];
 io.on('connection', (socket) => {
