@@ -16,4 +16,4 @@ router.delete("/remove-user-group", chatController.removeUserFromGroup);
 router.get("/get-group/:groupId", chatController.getGroup);
 router.get("/get-all-groups/:clientId", chatController.getAllClientGroups);
 
-module.exports = router;
+module.exports = router; 

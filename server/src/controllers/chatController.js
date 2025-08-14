@@ -1,4 +1,3 @@
-const { get } = require('mongoose');
 const {chatModel, groupChatModel} = require('../models/chats');
 
 const chatController = {
