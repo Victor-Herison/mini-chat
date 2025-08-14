@@ -8,9 +8,9 @@ const messageSchema = new connectDB.Schema({
     text: String
 
 },{
-    tumestamps: true
+    timestamps: true
 })
 
 
 const messageModel = connectDB.model('Message', messageSchema);
-module.exports = {messageModel};
+module.exports = messageModel;

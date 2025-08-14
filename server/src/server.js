@@ -18,10 +18,11 @@ const corsOptions = {
 app.use(cors(corsOptions));
 const userRouter = require('./routes/userRouter');
 const chatRouter = require('./routes/chatRouter');
+const messageRouter = require('./routes/messageRouter');
 
 app.use('/user',express.json(), userRouter);
 app.use('/chat', express.json(), chatRouter);
-
+app.use('/message', express.json(), messageRouter);
 
 
 
