@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card"
 import { LogOut, MessageCircle } from "lucide-react"
 
 
+
 const socket = io.connect("http://localhost:3000") // Connect to the server
 export default function ChatPage() {
   const [userData, setUserData] = useState(null)
@@ -38,6 +39,23 @@ export default function ChatPage() {
       </div>
     )
   }
+  async function fetchAllChats(clientID) {
+    const response = await fetch(`http://localhost:3000/chat/get-all-chats/${clientID}`)
+    if (!response.ok) {
+        throw new Error('Oh Oh! Something went wrong while fetching all chats.');
+    }
+
+    const data = await response.json();
+    console.log(data)
+    return data;
+}
+
+fetchAllChats(userData.id)
+
+
+
+
+  
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-900 via-purple-800 to-purple-700 p-4">

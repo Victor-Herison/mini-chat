@@ -55,7 +55,7 @@ const userControler = {
                 const token = jwt.sign({ userId: actualUser._id }, process.env.TOKEN_SECRET, { expiresIn: '1h' });
                 res.header('Authorization', `Bearer ${token}`);
                 
-                return res.status(200).json({ message: 'Login successful', user: { nickname: actualUser.nickname, email: actualUser.email } });
+                return res.status(200).json({ message: 'Login successful', user: {id: actualUser._id, nickname: actualUser.nickname, email: actualUser.email, createdAt: actualUser.createdAt} });
             }
             
             return res.status(401).json({ message: 'Invalid email or password' });
